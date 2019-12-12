@@ -14,9 +14,9 @@ class App extends Component {
   };
 
   search = async val => {
-    this.setState({ loading: true });
+	this.setState({ loading: true });
     const results = await search(
-      `http://localhost:5100/api/v1/products/getProDetails?srch=${val}&api_key=dbc0a6d62448554c27b6167ef7dabb1b`
+       `${process.env.REACT_APP_OPENSHIFT_API_URL}api/v1/products/getProDetails?srch=${val}&api_key=dbc0a6d62448554c27b6167ef7dabb1b`
     );
     const products = results;
     this.setState({ products, loading: false });
@@ -38,7 +38,11 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <div className="row martopBot50">&nbsp;</div>
+        <div className="row">
+          <div className="col-md-12 text-center">
+            <img src="/assets/images/logo/riders-shop-cart.png" />
+          </div>
+        </div>
         <div className="row">
           <div className="col-md-12">
             <input value={this.state.value} onChange={e => this.onChangeHandler(e)} placeholder="Enter text to search" className="form-control"/>
