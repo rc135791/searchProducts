@@ -40,7 +40,7 @@ class App extends Component {
       <div className="container">
         <div className="row">
           <div className="col-md-12 text-center">
-            <img src="/assets/images/logo/riders-shop-cart.png" />
+            <img src="/assets/images/logo/container-riders-logo.png" />
           </div>
         </div>
         <div className="row">
