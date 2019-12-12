@@ -28,7 +28,7 @@ class App extends Component {
   };
 
   get renderProducts() {
-    let products = <h1>No products</h1>;
+    let products = <h1>Search products</h1>;
     if (this.state.products) {
     	products = <Products list={this.state.products} />;
     }

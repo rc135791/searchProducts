@@ -8,19 +8,30 @@ import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.m
 
 const Products = ({ list }) => {
   let cards = <h3>Loading...</h3>;
-  const columns = [{
-	  dataField: 'DESCRIPTION',
-	  text: 'Product ID'
-	}, {
-	  dataField: 'LIST_PRICE',
-	  text: 'Product Name'
-	}, {
-	  dataField: 'IN_STOCK',
-	  text: 'Product Price'
-	}];
-  if (list) {
-   // cards = list.map((m, i) => <Movie key={i} item={m} />);
+  const columns = [
+	  {
+	    dataField: 'DESCRIPTION',
+	    text: 'Product Name'
+	  },
+	  {
+	    dataField: 'BRAND',
+	    text: 'Brand'
+	  },
+	  {
+		dataField: 'SKU_ATTRIBUTE_VALUE2',
+		text: 'Color'
+	  },
+	  {
+	    dataField: 'LIST_PRICE',
+	    text: 'Product Price'
+	  },
+	  {
+		dataField: 'IN_STOCK',
+		text: 'In Stock'
+	  }
 	  
+	  ];
+  if (list) {
     cards = <BootstrapTable keyField='ITEM_NUMBER' data={ list } columns={ columns } pagination={ paginationFactory() } />;
   }
   
