@@ -11,3 +11,64 @@
 .txtAlgnCenter{
   text-align:center;
 }
+.rd_proimg{
+	width:200px;
+	height:250px;
+}
+.rd_wrapTxt {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+.rd_left{
+	float: left;
+	width: 100%;	
+}
+.rd_left_20{
+	float: left;
+	width: 10%;	
+}
+.rd_left_80{
+	float: left;
+	width: 80%;	
+}
+.rd_totalPrice{
+	text-decoration: line-through;
+	color: #cc0000;
+}
+.rd_pro_section{
+	float: left;
+	width: 100%;
+	padding: 10%;
+	border: 1px solid #cfc03c;
+	margin: 10px 0px;
+}
+.rd_single_product{
+	float: left;
+	width: 32%;
+	margin-right: 1%;
+}
+.rd_search_section{
+    padding: 10px;
+}
+.rd_border_grey{
+	border: 1px solid #ccc;
+}
+.rd_search_title{
+	font-size: 15pt;
+    font-weight: bold;
+    background: #212970;
+    color: #fff;
+    padding-left: 15px;	
+}
+.rd_list_style{
+	list-style-type: none;
+}
+.rd_font_uppercase{
+	text-transform: uppercase;
+}
+.rd_marg_bot20{
+	margin-bottom: 20px;
+}

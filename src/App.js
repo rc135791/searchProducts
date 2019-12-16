@@ -10,7 +10,10 @@ class App extends Component {
   state = {
     products: null,
     loading: false,
-    value: ""
+    value: "",
+    brands: null,
+    proSize: null,
+    proColor: null
   };
 
   search = async val => {
@@ -19,7 +22,10 @@ class App extends Component {
        `${process.env.REACT_APP_OPENSHIFT_API_URL}api/v1/products/getProDetails?srch=${val}&api_key=dbc0a6d62448554c27b6167ef7dabb1b`
     );
     const products = results;
-    this.setState({ products, loading: false });
+    const brands = [...new Set(results.map(item => item.BRAND))]; 
+	const proSize = [...new Set(results.map(item => item.SKU_ATTRIBUTE_VALUE1))];
+	const proColor = [...new Set(results.map(item => item.SKU_ATTRIBUTE_VALUE2))];
+    this.setState({ products, brands, proSize, proColor, loading: false });
   };
 
   onChangeHandler = async e => {
@@ -27,14 +33,34 @@ class App extends Component {
     this.setState({ value: e.target.value });
   };
 
+  componentDidMount= async e => {
+	this.search('');
+	this.setState({ value: '' });
+  };
   get renderProducts() {
-    let products = <h1>Search products</h1>;
+    //let products = <h1>Search products</h1>;
+	let products;  
     if (this.state.products) {
-    	products = <Products list={this.state.products} />;
+    	this.state.products.forEach(function(item){
+  		  var listPrice = parseFloat(item.LIST_PRICE);
+  		  var disc = parseFloat(item.DISCOUNT);
+  		  if(disc > 0){
+  			 item.finalPrice = listPrice.toFixed(2);
+  			 item.totalAfterDiscount = (listPrice + disc).toFixed(2);
+  			 item.discClass = "rd_totalPrice";
+  			 return item;
+  		  }else{
+  			 item.finalPrice = listPrice.toFixed(2); 
+  			 item.totalAfterDiscount = 0; 
+  			 item.discClass = "";
+  			 return item;
+  		  }
+  		});
+    	products = <Products prolist={this.state.products} brandList={this.state.brands} proSize={this.state.proSize} proColor={this.state.proColor} />;
     }
     return products;
   }
-
+  
   render() {
     return (
       <div className="container">
