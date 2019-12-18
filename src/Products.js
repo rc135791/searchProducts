@@ -118,9 +118,7 @@ const Products = ({ onProductsDataChange, prolist, onBrandsDataChange, brandsArr
         </div>
         <div className="col-md-9">
           {products_list} 
-          <div className="rd_left" style="display:none;">
-            <Pagination size="lg">{page_items}</Pagination>
-		  </div>
+          
         </div>
       </div>
   );
