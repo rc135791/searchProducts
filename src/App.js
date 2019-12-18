@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+//import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { search } from "./utils";
@@ -7,21 +7,44 @@ import Products from "./Products";
 
 
 class App extends Component {
-  state = {
-    products: null,
-    loading: false,
-    value: "",
-    brands: null,
-    proSize: null,
-    proColor: null
-  };
-
+  constructor() {
+    super();	
+    this.state = {
+      products: null,
+      loading: false,
+      value: "",
+      brands: null,
+      proSize: null,
+      proColor: null,
+      brandsArr: [],
+      sizeArr: [],
+      colorArr: []
+    };
+    this.handleProductsData = this.handleProductsData.bind(this);
+    this.handleBrandsData = this.handleBrandsData.bind(this);
+    this.handleSizeData = this.handleSizeData.bind(this);
+    this.handleColorData = this.handleColorData.bind(this);
+  }
+  handleProductsData(results) {
+    this.setState({ products: results});
+  }
+  handleBrandsData(brandsList) {
+	this.setState({ brandsArr: brandsList});
+  }
+  handleSizeData(sizesList) {
+	this.setState({ sizeArr: sizesList});
+  }
+  handleColorData(colorsList) {
+	this.setState({ colorArr: colorsList});
+  }
   search = async val => {
 	this.setState({ loading: true });
     const results = await search(
        `${process.env.REACT_APP_OPENSHIFT_API_URL}api/v1/products/getProDetails?srch=${val}&api_key=dbc0a6d62448554c27b6167ef7dabb1b`
     );
     const products = results;
+    window.sessionStorage.setItem("userSearchResults", JSON.stringify(results));
+    //window.sessionStorage.setItem("userSearchedBrands", []);
     const brands = [...new Set(results.map(item => item.BRAND))]; 
 	const proSize = [...new Set(results.map(item => item.SKU_ATTRIBUTE_VALUE1))];
 	const proColor = [...new Set(results.map(item => item.SKU_ATTRIBUTE_VALUE2))];
@@ -56,7 +79,10 @@ class App extends Component {
   			 return item;
   		  }
   		});
-    	products = <Products prolist={this.state.products} brandList={this.state.brands} proSize={this.state.proSize} proColor={this.state.proColor} />;
+    	products = <Products onProductsDataChange={this.handleProductsData} prolist={this.state.products} 
+    	            onBrandsDataChange={this.handleBrandsData} brandsArr={this.state.brandsArr} brandList={this.state.brands}
+    	            onSizeDataChange={this.handleSizeData} sizeArr={this.state.sizeArr} proSize={this.state.proSize} 
+    	            onColorDataChange={this.handleColorData} colorArr={this.state.colorArr} proColor={this.state.proColor} />;
     }
     return products;
   }
@@ -66,7 +92,7 @@ class App extends Component {
       <div className="container">
         <div className="row">
           <div className="col-md-12 text-center">
-            <img src="/assets/images/logo/container-riders-logo.png" />
+            <img src="/assets/images/logo/container-riders-logo.png" alt="container riders shopping cart" />
           </div>
         </div>
         <div className="row">
