@@ -91,8 +91,8 @@ class App extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-md-12 text-center">
-            <img src="/assets/images/logo/container-riders-logo.png" alt="container riders shopping cart" />
+          <div className="col-md-12 text-center rd_logo">
+            RIDERS CART
           </div>
         </div>
         <div className="row">

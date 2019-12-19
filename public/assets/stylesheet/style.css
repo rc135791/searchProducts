@@ -1,3 +1,15 @@
+body {
+  background-image: url('/assets/images/bg/bg.png');
+  background-attachment: fixed;
+  color: #ffffff !important;
+}
+.rd_logo{
+  font-size: 65px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #eb5f46;
+  font-family: cursive;
+}
 .martopBot50{
 	margin: 50px 0px;
 }
@@ -22,6 +34,9 @@
   word-break: break-all;
   word-wrap: break-word;
 }
+.rd_red_border{
+  border-top: 2px solid #eb5f46;	
+}
 .rd_left{
 	float: left;
 	width: 100%;	
@@ -42,7 +57,7 @@
 	float: left;
 	width: 100%;
 	padding: 10%;
-	border: 1px solid #cfc03c;
+	/*border: 1px solid #cfc03c; */
 	margin: 10px 0px;
 }
 .rd_single_product{
@@ -59,7 +74,7 @@
 .rd_search_title{
 	font-size: 15pt;
     font-weight: bold;
-    background: #212970;
+    background: #eb5f46;
     color: #fff;
     padding-left: 15px;	
 }
@@ -71,4 +86,7 @@
 }
 .rd_marg_bot20{
 	margin-bottom: 20px;
+}
+.rd_marg_top20{
+	margin-top: 20px;
 }

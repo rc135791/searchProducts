@@ -92,7 +92,7 @@ const Products = ({ onProductsDataChange, prolist, onBrandsDataChange, brandsArr
 		<div className="rd_single_product" key={item.ITEM_NUMBER}>	
 		  <div className="rd_pro_section">
 	        <div className="rd_left text-center"><img src={"/assets/images/products/"+item.ITEM_NUMBER+".jpg"} alt={item.ITEM_NUMBER} className="rd_proimg" /></div>
-	        <div className="rd_left rd_wrapTxt  text-center" title={item.DESCRIPTION}>{item.DESCRIPTION}</div>
+	        <div className="rd_left rd_wrapTxt rd_red_border text-center rd_marg_top20" title={item.DESCRIPTION}>{item.DESCRIPTION}</div>
 	        <div className="rd_left text-center">{item.BRAND} {item.SKU_ATTRIBUTE_VALUE1} {item.SKU_ATTRIBUTE_VALUE2}</div>
 	        <div className="rd_left text-center">{item.finalPrice} <span className={item.discClass}>{item.totalAfterDiscount === 0 ? '':item.totalAfterDiscount}</span></div>
 	      </div>
@@ -102,6 +102,10 @@ const Products = ({ onProductsDataChange, prolist, onBrandsDataChange, brandsArr
   
   return (
       <div className="row marTop40">
+        <div className="col-md-9">
+          {products_list} 
+          
+        </div>
         <div className="col-md-3 rd_search_section">
           <div className="rd_left rd_border_grey rd_marg_bot20">
            <div className="rd_search_title">Brands</div>
@@ -115,11 +119,7 @@ const Products = ({ onProductsDataChange, prolist, onBrandsDataChange, brandsArr
             <div className="rd_search_title">Color</div>
             <div className="rd_left"><ul className="rd_list_style rd_font_uppercase">{product_color}</ul></div>
           </div>
-        </div>
-        <div className="col-md-9">
-          {products_list} 
-          
-        </div>
+        </div>        
       </div>
   );
 };
