@@ -6,7 +6,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
 
 
-const HeaderMenus = ({srcValues, changeHandler }) => {
+const HeaderMenus = ({srcValues, changeHandler, fetchText, micImg, micGif }) => {
 	       return (
     			  <Navbar className="navbar rd_bg_orange navbar-dark navbar-expand-sm" expand="lg">
     	          <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -31,7 +31,6 @@ const HeaderMenus = ({srcValues, changeHandler }) => {
     	                <NavDropdown.Item href="/color/gray">Gray</NavDropdown.Item>
     	                <NavDropdown.Item href="/color/white">White</NavDropdown.Item>
     	                <NavDropdown.Item href="/color/red">Red</NavDropdown.Item>
-    	                <NavDropdown.Divider />
     	                <NavDropdown.Item href="/color/wine_red">Wine Red</NavDropdown.Item>
     	                <NavDropdown.Item href="/color/dark_green">Dark Green</NavDropdown.Item>
     	                <NavDropdown.Item href="/color/coffee">Coffee</NavDropdown.Item>
@@ -41,7 +40,9 @@ const HeaderMenus = ({srcValues, changeHandler }) => {
     	              </NavDropdown>
     	            </Nav>
     	            <Form inline>
-    	              <input value={srcValues} onChange={e => changeHandler(e)} placeholder="Enter text to search" className="form-control"/>
+    	              <input value={srcValues} onChange={e => changeHandler(e)} placeholder="Enter text to search" className="form-control rd_width_80"/>
+    	              <img onClick={e => fetchText(e)} className={micImg} src="/assets/images/mic/icon.png" alt="mic" />
+    	              <img className={micGif} src="/assets/images/mic/mic-recording.gif" alt="mic_recording" />			  
     	            </Form>
     	          </Navbar.Collapse>
     	        </Navbar>

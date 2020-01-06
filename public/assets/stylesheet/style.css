@@ -9,6 +9,7 @@ body {
   font-weight: bold;
   color: #eb5f46;
   font-family: cursive;
+  margin-top: 70px;
 }
 .martopBot50{
 	margin: 50px 0px;
@@ -108,9 +109,27 @@ body {
 .rd_footer{
 	border-top: 1px solid #eb5f46;
 	color: #eb5f46;
-    padding-top: 3px;
-    text-align: right;
-    font-size: 12px;
+    padding: 10px 10px 30px 10px;
+    background: #000;
+}
+.rd_float_right{
+	float: right !important;
+	padding-left: 10%;
+}
+.rd_footer_left{
+	float: left;
+	width: 33%;
+	text-transform: uppercase;
+	font-size:20px;
+}
+.rd_footer_right{
+	float: right;
+	width: 50%;
+	text-align: right;
+	font-size: 12px;
+}
+.rd_text_13{
+	font-size: 13px;
 }
 .pagination {
     display: inline-block;
@@ -155,4 +174,44 @@ body {
     background-color: #fff;
     border: 1px solid #ddd;
     margin-left: -1px;
+}
+.rd_mic{
+	cursor: pointer;
+}
+.rd_relative{
+	position: relative;
+}
+.rd_mic_receiver{
+	position: absolute;
+    top: 50%;
+    z-index: 1;
+    right: 30%;
+}
+.rd_no_results{
+	padding-top: 5%;
+    text-align: center;
+    font-size: 30px;
+    padding-bottom: 10%;
+}
+.rd_nav_fixed{
+	position: fixed !important;
+    left: 0px;
+    padding: 0px !important;
+    z-index: 12;
+}
+a.nav-link {
+    font-size: 24px;
+    color: #000 !important;
+    font-weight: bold;
+}
+.form-inline{
+	width: 35%;
+}
+.rd_width_80{
+	width: 80% !important;
+}
+.rd_follow_us{
+    width: 50px;
+    margin-right: 20px;
+    border-radius: 10px;
 }

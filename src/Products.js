@@ -11,16 +11,17 @@ import _ from 'lodash';
 const Products = ({ onProductsDataChange, prolist, onBrandsDataChange, brandsArr, brandList, 
 	                onSizeDataChange, sizeArr, proSize, 
 	                onColorDataChange, colorArr, proColor, hideSearch, proFull, proSingle,
-	                handlePageChange, activePage }) => {
+	                handlePageChange, activePage, nullResults }) => {
 	                	
   let products_list = <h3>Loading...</h3>;
-  let active = 2;
+ // let active = 2;
   let page_items = [], temp_prolist = [];
-  let brands_product, product_size, product_color, search_results;
+  let brands_product, product_size, product_color, search_results, total_result_products;
   let temp_results_arr = [];
   const userSearchResultsCurrent = JSON.parse(window.sessionStorage.getItem("userSearchResults"));
   if (prolist) {
-	  temp_prolist = _.slice(prolist, ((activePage == 1)?0:(activePage-1)*12), (activePage*12));
+	  total_result_products = _.size(prolist);
+	  temp_prolist = _.slice(prolist, ((activePage === 1)?0:(activePage-1)*12), (activePage*12));
 	  const toggle = (event, option, search_type) => {
 		   if (event.target.checked) {
 		    	switch(search_type) {
@@ -96,18 +97,15 @@ const Products = ({ onProductsDataChange, prolist, onBrandsDataChange, brandsArr
   
   return (
       <div className="row marTop40">
+        <div className={nullResults}>
+          No results found. Please try again.
+        </div>
         <div className={proFull}>
-	        <div className="rd_left">
-		        <Pagination
-		          activePage={activePage}
-		          itemsCountPerPage={12}
-		          totalItemsCount={93}
-		          pageRangeDisplayed={5}
-		          onChange={handlePageChange}
-		        />
-	        </div>
+	        
           {products_list} 
-          
+          <div className="rd_left">
+	        <Pagination activePage={activePage} itemsCountPerPage={12} totalItemsCount={total_result_products} pageRangeDisplayed={5} onChange={handlePageChange} />
+          </div>
         </div>
         <div className={hideSearch}>
           <div className="rd_left rd_border_grey rd_marg_bot20">
