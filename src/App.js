@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-//import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { search } from "./utils";
 import Products from "./Products";
 import HeaderMenus from "./HeaderMenus";
-
+import Slider from "./Slider";
 import _ from 'lodash';
 
 class App extends Component {
@@ -34,9 +33,19 @@ class App extends Component {
     this.handleSizeData = this.handleSizeData.bind(this);
     this.handleColorData = this.handleColorData.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
+    this.imgMouseOut = this.imgMouseOut.bind(this);
+    this.imgMouseOver = this.imgMouseOver.bind(this);
   }
   handleProductsData(results) {
     this.setState({ products: results});
+  }
+  imgMouseOut() {
+	//console.log("Mouse out!!!");
+  }
+	  
+  imgMouseOver(tts) {
+	 //console.log("Mouse over!!!");
+	 
   }
   handleBrandsData(brandsList) {
 	this.setState({ brandsArr: brandsList});
@@ -173,7 +182,8 @@ class App extends Component {
     	            onSizeDataChange={this.handleSizeData} sizeArr={this.state.sizeArr} proSize={this.state.proSize} 
     	            onColorDataChange={this.handleColorData} colorArr={this.state.colorArr} proColor={this.state.proColor}
     	            hideSearch={this.state.hideSearch} proFull={this.state.proFull} proSingle={this.state.proSingle} 
-    	            handlePageChange={this.handlePageChange} activePage={this.state.activePage} nullResults={this.state.nullResults} />;
+    	            handlePageChange={this.handlePageChange} activePage={this.state.activePage} nullResults={this.state.nullResults} 
+    	            imgMouseOut={this.imgMouseOut} imgMouseOver={this.imgMouseOver}  />;
     }
     return products;
   }
@@ -198,6 +208,9 @@ class App extends Component {
             <input value={this.state.value} onChange={e => this.onChangeHandler(e)} placeholder="Enter text to search" className="form-control"/>
           </div>
           <div className="col-md-1 rd_search_none">  <img src="/assets/images/mic/icon.png" alt="mic" className="rd_mic_icon" /></div>
+          <div className="col-md-12">
+            <Slider />
+          </div>
           <div className="col-md-12">
             {this.renderProducts}
           </div>  

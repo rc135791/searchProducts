@@ -27,6 +27,11 @@ body {
 .rd_proimg{
 	width:200px;
 	height:250px;
+	transition: transform .2s;
+	cursor: pointer;
+}
+.rd_proimg:hover{
+	transform: scale(1.2);
 }
 .rd_wrapTxt {
   overflow: hidden;
@@ -214,4 +219,21 @@ a.nav-link {
     width: 50px;
     margin-right: 20px;
     border-radius: 10px;
+}
+.react-slideshow-wrapper.slide{
+	height: 400px;
+}
+.each-slide{
+	height: 400px;
+}
+.rd_ht400{
+	height: 400px;
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
+	background-color: #eb5f46 !important;
+	border-color:  #eb5f46 !important;
+	color: #fff !important;
+}
+.pagination>li>a, .pagination>li>span{
+	color: #eb5f46 !important;
 }

@@ -11,7 +11,7 @@ import _ from 'lodash';
 const Products = ({ onProductsDataChange, prolist, onBrandsDataChange, brandsArr, brandList, 
 	                onSizeDataChange, sizeArr, proSize, 
 	                onColorDataChange, colorArr, proColor, hideSearch, proFull, proSingle,
-	                handlePageChange, activePage, nullResults }) => {
+	                handlePageChange, activePage, nullResults, imgMouseOut, imgMouseOver }) => {
 	                	
   let products_list = <h3>Loading...</h3>;
  // let active = 2;
@@ -86,7 +86,7 @@ const Products = ({ onProductsDataChange, prolist, onBrandsDataChange, brandsArr
       products_list = temp_prolist.filter(item => item.ITEM_NUMBER !== null).map((item, index) => (
 		<div className={proSingle} key={item.ITEM_NUMBER}>	
 		  <div className="rd_pro_section">
-	        <div className="rd_left text-center"><img src={"/assets/images/products/"+item.ITEM_NUMBER+".jpg"} alt={item.ITEM_NUMBER} className="rd_proimg" /></div>
+	        <div className="rd_left text-center"><img src={"/assets/images/products/"+item.ITEM_NUMBER+".jpg"} alt={item.ITEM_NUMBER} className="rd_proimg"  onMouseOut={imgMouseOut} onMouseOver={imgMouseOver(item.DESCRIPTION)} /></div>
 	        <div className="rd_left rd_wrapTxt rd_red_border text-center rd_marg_top20" title={item.DESCRIPTION}>{item.DESCRIPTION}</div>
 	        <div className="rd_left text-center">{item.BRAND} {item.SKU_ATTRIBUTE_VALUE1} {item.SKU_ATTRIBUTE_VALUE2}</div>
 	        <div className="rd_left text-center">{item.finalPrice} <span className={item.discClass}>{item.totalAfterDiscount === 0 ? '':item.totalAfterDiscount}</span></div>
