@@ -11,12 +11,12 @@ import _ from 'lodash';
 const Products = ({ onProductsDataChange, prolist, onBrandsDataChange, brandsArr, brandList, 
 	                onSizeDataChange, sizeArr, proSize, 
 	                onColorDataChange, colorArr, proColor, hideSearch, proFull, proSingle,
-	                handlePageChange, activePage, nullResults, imgMouseOut, imgMouseOver }) => {
+	                handlePageChange, activePage, nullResults, imgMouseOut, imgMouseOver, updateCartData, cartData }) => {
 	                	
   let products_list = <h3>Loading...</h3>;
  // let active = 2;
   let page_items = [], temp_prolist = [];
-  let brands_product, product_size, product_color, search_results, total_result_products;
+  let brands_product, product_size, product_color, search_results, total_result_products, shopping_cart_product;
   let temp_results_arr = [];
   const userSearchResultsCurrent = JSON.parse(window.sessionStorage.getItem("userSearchResults"));
   if (prolist) {
@@ -82,7 +82,15 @@ const Products = ({ onProductsDataChange, prolist, onBrandsDataChange, brandsArr
 	  product_color = proColor.filter(item => item !== null).map((item, index) => (
 	    	<li key={index}><input type="checkbox" name="prCol[]" value={item} onClick={event => toggle(event, item, 3)} className="form-check-input" /> {item}</li>
 	  ));
-	  
+	  shopping_cart_product = cartData.map((item, index) => 	(
+				<div key={index} className="col-md-12">	
+			    <div className="rd_cart_left "><img src={"/assets/images/products/"+item.ITEM_NUMBER+".jpg"} alt={item.ITEM_NUMBER} className="rd_cart_proimg"  /></div>
+		        <div className="rd_cart_right" title={item.DESCRIPTION}>
+		          <div className="rd_left">{item.DESCRIPTION}</div>
+		          <div className="rd_left">{item.finalPrice} <button  onClick={event => updateCartData(event, item, 2, item.ITEM_NUMBER)} className="rd_remove_item">X</button> </div>
+		        </div>
+		        </div>
+	  ));
       products_list = temp_prolist.filter(item => item.ITEM_NUMBER !== null).map((item, index) => (
 		<div className={proSingle} key={item.ITEM_NUMBER}>	
 		  <div className="rd_pro_section">
@@ -90,6 +98,7 @@ const Products = ({ onProductsDataChange, prolist, onBrandsDataChange, brandsArr
 	        <div className="rd_left rd_wrapTxt rd_red_border text-center rd_marg_top20" title={item.DESCRIPTION}>{item.DESCRIPTION}</div>
 	        <div className="rd_left text-center">{item.BRAND} {item.SKU_ATTRIBUTE_VALUE1} {item.SKU_ATTRIBUTE_VALUE2}</div>
 	        <div className="rd_left text-center">{item.finalPrice} <span className={item.discClass}>{item.totalAfterDiscount === 0 ? '':item.totalAfterDiscount}</span></div>
+	        <div className="rd_left text-center rd_add_to_cart"><button className="rd_add_item" onClick={event => updateCartData(event, item, 1, item.ITEM_NUMBER)}>Add to Cart</button></div>
 	      </div>
 	    </div>    
     ));
@@ -108,6 +117,10 @@ const Products = ({ onProductsDataChange, prolist, onBrandsDataChange, brandsArr
           </div>
         </div>
         <div className={hideSearch}>
+          <div className="rd_left rd_border_grey rd_marg_bot20">
+            <div className="rd_search_title">Cart</div>
+            {shopping_cart_product}
+	      </div>
           <div className="rd_left rd_border_grey rd_marg_bot20">
            <div className="rd_search_title">Brands</div>
            <div className="rd_left"><ul className="rd_list_style rd_font_uppercase">{brands_product}</ul></div>

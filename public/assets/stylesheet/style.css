@@ -61,7 +61,7 @@ body {
 }
 .rd_pro_section{
 	float: left;
-	width: 100%;
+	width: 94%;
 	padding: 0% 4% 5% 4%;
 	/*border: 1px solid #cfc03c; */
 	margin: 10px 0px;
@@ -236,4 +236,81 @@ a.nav-link {
 }
 .pagination>li>a, .pagination>li>span{
 	color: #eb5f46 !important;
+}
+.rd_brands_fixed {
+    position: fixed;
+    left: 0;
+    top: 40%;
+    list-style-type: none;
+    list-style: none;
+    background: #eb5f46;
+    border-radius: 0px 15px 15px 0px;
+    padding: 10px 10px 10px 0px;
+}
+.rd_brands_fixed ul{
+	list-style: none;
+}
+.rd_add_to_cart{
+	
+}
+.rd_cart_img{
+	width: 20%;
+	float: left;
+}
+.rd_cart_desc{
+	width: 30%;
+	float: left;
+}
+.rd_cart_attr{
+	width: 20%;
+	float: left;
+}
+.rd_cart_price{
+	width: 20%;
+	float: left;
+}
+.rd_cart_action{
+	width: 10%;
+	float: left;
+}
+.rd_cart_proimg{
+	width: 45px;
+	height: 45px;
+}
+.rd_cart_left{
+	margin-top: 7px;
+	width: 30%;
+	float: left;
+}
+.rd_cart_right{
+	margin-top: 7px;
+	width: 70%;
+	float: left;
+}
+.rd_remove_item{
+	background: #000;
+	color: #fff;
+	padding: 0px 10px;
+    border: 1px solid #eb5f46;
+    margin-bottom: 5px;
+}
+.rd_remove_item:hover{
+	background: #eb5f46;
+}
+.rd_add_item{
+	background: #eb5f46;
+	color: #fff;
+	padding: 0px35px;
+    border: 1px solid #eb5f46;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.rd_add_item:hover{
+	background: #000;
+}
+.rd_fixed_brands{
+	width: 130px;
+	height: 30px;
 }

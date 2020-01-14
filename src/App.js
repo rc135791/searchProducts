@@ -5,6 +5,8 @@ import { search } from "./utils";
 import Products from "./Products";
 import HeaderMenus from "./HeaderMenus";
 import Slider from "./Slider";
+import Brandsfixed from "./Brandsfixed";
+//import Shoppingcart from "./Shoppingcart";
 import _ from 'lodash';
 
 class App extends Component {
@@ -20,6 +22,7 @@ class App extends Component {
       brandsArr: [],
       sizeArr: [],
       colorArr: [],
+      cartData: [],
       hideSearch: "col-md-3 rd_search_section",
 	  proFull: "col-md-9",
 	  proSingle: "rd_single_product",
@@ -35,9 +38,24 @@ class App extends Component {
     this.handlePageChange = this.handlePageChange.bind(this);
     this.imgMouseOut = this.imgMouseOut.bind(this);
     this.imgMouseOver = this.imgMouseOver.bind(this);
+    this.updateCartData = this.updateCartData.bind(this);
+    //window.sessionStorage.setItem("cartData", []);
+    
   }
   handleProductsData(results) {
     this.setState({ products: results});
+  }
+  updateCartData(event, item, type, itemId) {
+	  let tempCartData = this.state.cartData;
+	  if(type == 1){
+		tempCartData.push(item);
+		this.state.cartData = tempCartData;
+	  }else if(type == 2){
+		tempCartData = tempCartData.filter(item => item.ITEM_NUMBER != itemId);
+		this.state.cartData = tempCartData;
+	  }
+	  this.setState({ cartData: tempCartData});
+	//  window.sessionStorage.setItem("cartData", tempCartData);
   }
   imgMouseOut() {
 	//console.log("Mouse out!!!");
@@ -79,7 +97,7 @@ class App extends Component {
     	proSingle = "rd_single_product";
     	nullResults = "col-md-12 rd_no_results";
     }
-    
+    this.setState({activePage: 1});
 // ################################### use below code in localhost to store results in session as sql connection gets logged out    
 //    else if(_.size(products) === 0 && _.size(JSON.parse(window.sessionStorage.getItem("userSearchResults"))) > 0){
 //    	products = JSON.parse(window.sessionStorage.getItem("userSearchResults"));
@@ -120,18 +138,20 @@ class App extends Component {
 	      this.setState({activePage: 1, micImg: "rd_mic", micGif: "rd_mic_receiver rd_search_none", value: finalTranscript});
 	      this.search(finalTranscript);
 	     // this.search("");
-//	      setTimeout(
-//		    function() {
-//		    	this.search(finalTranscript);
-//		    }
-//		    .bind(this),
-//		    1000
-//		  );
+	      
 	    }
+	    setTimeout(
+		    function() {
+		    	this.setState({activePage: 1, micImg: "rd_mic", micGif: "rd_mic_receiver rd_search_none", value: finalTranscript});
+		    }
+		    .bind(this),
+		    6000
+		 );
 	    recognition.start();
   };
   
   componentDidMount= async e => {
+	  
 	let current_path = window.location.href;
 	let check_search = _.split(current_path, '/');
 	let stored_results, products, hideSearch, proFull, proSingle, matchStr, nullResults;
@@ -183,7 +203,7 @@ class App extends Component {
     	            onColorDataChange={this.handleColorData} colorArr={this.state.colorArr} proColor={this.state.proColor}
     	            hideSearch={this.state.hideSearch} proFull={this.state.proFull} proSingle={this.state.proSingle} 
     	            handlePageChange={this.handlePageChange} activePage={this.state.activePage} nullResults={this.state.nullResults} 
-    	            imgMouseOut={this.imgMouseOut} imgMouseOver={this.imgMouseOver}  />;
+    	            imgMouseOut={this.imgMouseOut} imgMouseOver={this.imgMouseOver} updateCartData={this.updateCartData} cartData={this.state.cartData} />;
     }
     return products;
   }
@@ -192,9 +212,11 @@ class App extends Component {
 	  headerMenus = <HeaderMenus srcValues={this.state.value} changeHandler={this.onChangeHandler} fetchText={this.fetchText} micImg={this.state.micImg} micGif={this.state.micGif} />;
 	  return headerMenus;
   }
+   
   render() {
-    return (
+	return (
       <div className="container">
+        <Brandsfixed />
         <div className="row">
           <div className="col-md-12 rd_nav_fixed">
             {this.renderHeaderMenus}
