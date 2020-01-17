@@ -14,6 +14,7 @@ class App extends Component {
     super();	
     this.state = {
       products: [],
+      allProducts: [],
       loading: false,
       value: "",
       brands: [],
@@ -31,14 +32,15 @@ class App extends Component {
 	  micGif: "rd_mic_receiver rd_search_none",
 	  nullResults: "rd_search_none"
     };
-    this.handleProductsData = this.handleProductsData.bind(this);
-    this.handleBrandsData = this.handleBrandsData.bind(this);
-    this.handleSizeData = this.handleSizeData.bind(this);
-    this.handleColorData = this.handleColorData.bind(this);
-    this.handlePageChange = this.handlePageChange.bind(this);
-    this.imgMouseOut = this.imgMouseOut.bind(this);
-    this.imgMouseOver = this.imgMouseOver.bind(this);
-    this.updateCartData = this.updateCartData.bind(this);
+    this.handleProductsData = this.handleProductsData.bind(this)
+    this.handleBrandsData = this.handleBrandsData.bind(this)
+    this.handleSizeData = this.handleSizeData.bind(this)
+    this.handleColorData = this.handleColorData.bind(this)
+    this.handlePageChange = this.handlePageChange.bind(this)
+    this.imgMouseOut = this.imgMouseOut.bind(this)
+    this.imgMouseOver = this.imgMouseOver.bind(this)
+    this.updateCartData = this.updateCartData.bind(this)
+    this.navigatePage = this.navigatePage.bind(this)
     //window.sessionStorage.setItem("cartData", []);
     
   }
@@ -56,6 +58,30 @@ class App extends Component {
 	  }
 	  this.setState({ cartData: tempCartData});
 	//  window.sessionStorage.setItem("cartData", tempCartData);
+  }
+  navigatePage(e, pageName, type){
+	  console.log(pageName);
+	  let products, hideSearch, proFull, proSingle, nullResults, stored_results;
+	  let matchStr = _.replace(pageName, /_/g, " ");
+	  nullResults = "rd_search_none";
+	  if(type === 1){
+		  stored_results = this.state.allProducts;
+		  products =  _.filter(stored_results, (item) => _.lowerCase(item.BRAND) === matchStr);
+		  hideSearch = "rd_search_none"; 
+		  proFull = "col-md-12";
+		  proSingle = "rd_multi_product";
+		 this.setState({ products, hideSearch, proFull, proSingle, nullResults, loading: false, activePage: 1 });
+	  }else if(type === 2){
+		stored_results = this.state.allProducts;
+		products =  _.filter(stored_results, (item) => _.lowerCase(item.SKU_ATTRIBUTE_VALUE2) === matchStr);
+		hideSearch = "rd_search_none"; 
+		proFull = "col-md-12";
+		proSingle = "rd_multi_product";
+	    this.setState({ products, hideSearch, proFull, proSingle, nullResults,  loading: false, activePage: 1 });
+	  }else if(type === 3){
+		 this.search('');
+		 this.setState({ value: '' });  
+	  }
   }
   imgMouseOut() {
 	//console.log("Mouse out!!!");
@@ -83,6 +109,9 @@ class App extends Component {
        `${process.env.REACT_APP_OPENSHIFT_API_URL}api/v1/products/getProDetails?srch=${val}&api_key=dbc0a6d62448554c27b6167ef7dabb1b`
     );
     let products, hideSearch, proFull, proSingle, nullResults;
+    if(_.size(this.state.allProducts) == 0){
+    	this.setState({allProducts: results});
+    }
     if(_.size(results) > 0 ){
     	window.sessionStorage.setItem("userSearchResults", JSON.stringify(results));
     	products = results;
@@ -152,31 +181,31 @@ class App extends Component {
   
   componentDidMount= async e => {
 	  
-	let current_path = window.location.href;
-	let check_search = _.split(current_path, '/');
-	let stored_results, products, hideSearch, proFull, proSingle, matchStr, nullResults;
-	matchStr = _.replace(check_search[4], /_/g, " ");
-	nullResults = "rd_search_none";
-	if(_.size(check_search) > 4 ) {
-		if(check_search[3] === 'brand'){
-			stored_results = JSON.parse(window.sessionStorage.getItem("userSearchResults"));
-			products =  _.filter(stored_results, (item) => _.lowerCase(item.BRAND) === matchStr);
-			hideSearch = "rd_search_none"; 
-			proFull = "col-md-12";
-			proSingle = "rd_multi_product";
-		    this.setState({ products, hideSearch, proFull, proSingle, nullResults, loading: false });
-		}else if(check_search[3] === 'color'){
-			stored_results = JSON.parse(window.sessionStorage.getItem("userSearchResults"));
-			products =  _.filter(stored_results, (item) => _.lowerCase(item.SKU_ATTRIBUTE_VALUE2) === matchStr);
-			hideSearch = "rd_search_none"; 
-			proFull = "col-md-12";
-			proSingle = "rd_multi_product";
-		    this.setState({ products, hideSearch, proFull, proSingle, nullResults,  loading: false });
-		}
-	}else{
+//	let current_path = window.location.href;
+//	let check_search = _.split(current_path, '/');
+//	let stored_results, products, hideSearch, proFull, proSingle, matchStr, nullResults;
+//	matchStr = _.replace(check_search[4], /_/g, " ");
+//	nullResults = "rd_search_none";
+//	if(_.size(check_search) > 4 ) {
+//		if(check_search[3] === 'brand'){
+//			stored_results = JSON.parse(window.sessionStorage.getItem("userSearchResults"));
+//			products =  _.filter(stored_results, (item) => _.lowerCase(item.BRAND) === matchStr);
+//			hideSearch = "rd_search_none"; 
+//			proFull = "col-md-12";
+//			proSingle = "rd_multi_product";
+//		    this.setState({ products, hideSearch, proFull, proSingle, nullResults, loading: false });
+//		}else if(check_search[3] === 'color'){
+//			stored_results = JSON.parse(window.sessionStorage.getItem("userSearchResults"));
+//			products =  _.filter(stored_results, (item) => _.lowerCase(item.SKU_ATTRIBUTE_VALUE2) === matchStr);
+//			hideSearch = "rd_search_none"; 
+//			proFull = "col-md-12";
+//			proSingle = "rd_multi_product";
+//		    this.setState({ products, hideSearch, proFull, proSingle, nullResults,  loading: false });
+//		}
+//	}else{
 		this.search('');
 		this.setState({ value: '' });
-	}
+//	}
   };
   get renderProducts() {
     //let products = <h1 >Search products</h1>;
@@ -207,9 +236,37 @@ class App extends Component {
     }
     return products;
   }
+  get detailsPage(){
+	  let products= <h1 >Search products</h1>;  
+	    if (this.state.products) {
+	    	this.state.products.forEach(function(item){
+	  		  var listPrice = parseFloat(item.LIST_PRICE);
+	  		  var disc = parseFloat(item.DISCOUNT);
+	  		  if(disc > 0){
+	  			 item.finalPrice = listPrice.toFixed(2);
+	  			 item.totalAfterDiscount = (listPrice + disc).toFixed(2);
+	  			 item.discClass = "rd_totalPrice";
+	  			 return item;
+	  		  }else{
+	  			 item.finalPrice = listPrice.toFixed(2); 
+	  			 item.totalAfterDiscount = 0; 
+	  			 item.discClass = "";
+	  			 return item;
+	  		  }
+	  		});
+	    	products = <Products onProductsDataChange={(results) => this.handleProductsData(results)} prolist={this.state.products} 
+	    	            onBrandsDataChange={this.handleBrandsData} brandsArr={this.state.brandsArr} brandList={this.state.brands}
+	    	            onSizeDataChange={this.handleSizeData} sizeArr={this.state.sizeArr} proSize={this.state.proSize} 
+	    	            onColorDataChange={this.handleColorData} colorArr={this.state.colorArr} proColor={this.state.proColor}
+	    	            hideSearch={this.state.hideSearch} proFull={this.state.proFull} proSingle={this.state.proSingle} 
+	    	            handlePageChange={this.handlePageChange} activePage={this.state.activePage} nullResults={this.state.nullResults} 
+	    	            imgMouseOut={this.imgMouseOut} imgMouseOver={this.imgMouseOver} updateCartData={this.updateCartData} cartData={this.state.cartData} />;
+	    }
+	    return products;
+  }
   get renderHeaderMenus() {
 	  let headerMenus;
-	  headerMenus = <HeaderMenus srcValues={this.state.value} changeHandler={this.onChangeHandler} fetchText={this.fetchText} micImg={this.state.micImg} micGif={this.state.micGif} />;
+	  headerMenus = <HeaderMenus srcValues={this.state.value} changeHandler={this.onChangeHandler} fetchText={this.fetchText} micImg={this.state.micImg} micGif={this.state.micGif} navigatePage={this.navigatePage} />;
 	  return headerMenus;
   }
    
