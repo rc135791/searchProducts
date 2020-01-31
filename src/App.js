@@ -164,6 +164,7 @@ class App extends Component {
 	          interimTranscript += transcript;
 	        }
 	      }
+	      recognition.stop();
 	      this.setState({activePage: 1, micImg: "rd_mic", micGif: "rd_mic_receiver rd_search_none", value: finalTranscript});
 	      this.search(finalTranscript);
 	     // this.search("");
